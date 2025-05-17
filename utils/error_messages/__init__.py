@@ -1,0 +1,3 @@
+"""
+Alert messages module
+"""
