@@ -11,7 +11,7 @@ class TestRegisterPageUI(BaseTest):
         actual_title = register_page.get_title()
         expected_title = RegisterPageUI.REGISTER_PAGE_TITLE
         assert actual_title == expected_title, (
-            f"Register Page title ERROR\n "
+            f"REGISTER PAGE TITLE ERROR\n "
             f"Expected = '{expected_title}'\n"
             f"Actual = '{actual_title}'. "
         )

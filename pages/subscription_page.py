@@ -9,7 +9,7 @@ from selenium.common.exceptions import TimeoutException
 class SubscriptionPage(BasePage):
     """Page object for the subscription page"""
     def open(self):
-        """Open the register page using the predefined URL"""
+        """Open the subscription page using the predefined URL"""
         self.open_url(Urls.SUBSCRIPTION)
 
     def logout(self):

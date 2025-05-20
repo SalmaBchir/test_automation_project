@@ -309,18 +309,6 @@ class BasePage:
             self.logger.error(f"Failed to get text from element identified as '{element_name}' at '{self.get_current_url()}'| {str(e)}")
             return ""
 
-    def get_error_message(self, element):
-        """
-        Get the error message.
-        Returns:
-            str: Error message text or '' if none is found.
-        """
-        error_message = self.get_text(element)
-        if not error_message:
-            self.logger.info("No error message found")
-        return error_message
-
-
 
     def switch_to_new_window(self):
         """Switch to the most recently opened window."""

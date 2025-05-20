@@ -75,7 +75,7 @@ class RegisterCompanyPage(BasePage):
 
     def get_register_company_error_message(self):
         element=self.find_element(RegisterCompanyPageLocators.ERROR_MESSAGE)
-        return self.get_error_message(element)
+        return self.get_text(element)
 
     def is_company_registration_successful(self):
         """

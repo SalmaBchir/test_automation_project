@@ -1,7 +1,6 @@
 import logging
 import pytest
 from selenium.webdriver.remote.webdriver import WebDriver
-
 from pages.register_company_page import RegisterCompanyPage
 from pages.register_page import RegisterPage
 

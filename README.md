@@ -27,19 +27,20 @@ test_automation_project/
 │   └── ...                               # Other test modules (directories: register_user_tests, etc.)  
 │
 ├── utils/                                # Utilities and configurations  
-│   ├── error_messages/                   # Error messages by page  
+│   ├── validation_messages/              # Errors and success messages related to form validation, per page
 │   │   ├── __init__.py  
-│   │   ├── login_page_errors.py  
-│   │   ├── register_page_errors.py  
+│   │   ├── base_messages.py              # Core functionality for message type identification
+│   │   ├── login_page_messages.py  
+│   │   ├── register_page_messages.py  
 │   │   └──  ... 
 │   │ 
-│   ├── locators/                        # Element locators by page (IDs, XPaths)  
+│   ├── locators/                        # Element locators per page (IDs, XPaths)  
 │   │   ├── __init__.py  
 │   │   ├── login_page_locators.py  
 │   │   ├── register_page_locators.py  
 │   │   └── ... 
 │   │ 
-│   ├── ui_texts/                       # Button texts and labels by page  
+│   ├── ui_texts/                       # Button texts and labels per page  
 │   │   ├── __init__.py  
 │   │   ├── login_page_ui.py  
 │   │   ├── register_page_ui.py 
@@ -84,10 +85,16 @@ test_automation_project/
 
 ### 2. Running Tests
 
+#### ❗ Pytest naming conventions:  For test auto-discovery
+- Files: `test_*.py` or `*_test.py`  
+- Functions: `test_*` prefix  
+- Classes: `Test*` prefix  
+
 #### ❗ Note
 
 You can run commands either from the **project root directory** (`test_automation_project/`) or from the `tests/` directory,  
 as long as the `conftest.py` file is in scope so Pytest can auto-detect fixtures and configurations.
+
 
 #### ✅ Command examples from the project root
 
@@ -112,34 +119,24 @@ Command: Add -n auto (auto-detects cores) or -n 2 (2 workers).
 - Isolates UI elements and their interactions from test scripts for better maintainability.
 - Centralizes common element actions (e.g., `click`, `input_text`) in reusable page classes.
 
-### 2. Centralized Wait Management
+### 2. Test Stability & Data Separation
 
-The BasePage class (defined in base_page.py) standardizes Selenium wait mechanisms to ensure robust and stable test execution. It imports timeout configurations directly from `utils.config`:
+Isolated Components for maintainability and reuse:
 
-- **Implicit Waits**: Automatically waits up to IMPLICIT_WAIT seconds (e.g., 10s) for elements to exist in the DOM. 
-- **Explicit  Waits**:  Uses WebDriverWait with EXPLICIT_WAIT (e.g., 10s) to wait dynamically for specific conditions like element visibility or clickability, allowing more precise control over dynamic page behavior.
-- **Page Load Timeout**:  Applies set_page_load_timeout(PAGE_LOAD_TIMEOUT) to fail test execution if a page takes too long to load (e.g., 30s), avoiding indefinite hangs on slow pages.
+- **Locators**
+- **UI Texts**: Button texts and labels 
+- **Validation Messages**:  related to form validation
+- **Test Data**: Valid and invalid user data 
+- **Configuration**: Global settings like browser type and timeouts 
+- **URLs**
 
-- This setup minimizes flakiness by handling delays, dynamic content, and slow page loads systematically.
 
-### 3. Data Separation
-
-- **Locators**: UI element identifiers (XPath/CSS) stored in `utils/locators/` (e.g., `login_page_locators.py`).
-- **UI Texts**: Button texts and labels stored in `utils/ui_texts/` (e.g., `login_page_ui.py`).
-- **Error Messages**: Page-specific error messages stored in `utils/error_messages/` (e.g., `login_page_errors.py`).
-- **Test Data**: Valid and invalid user data stored in `utils/users.py`.
-- **Configuration**: Global settings like browser type and timeouts in `utils/config.py`.
-- **URLs**: All app URLs centralized in `utils/urls.py`.
-
-- **Advantages**
-  - **Safe Change Propagation** : Update locators or test data in a single file — changes automatically reflect across all tests.
-  - **Improved Readability**: Tests remain focused on business logic instead of low-level UI details.
-  - **Collaboration-Friendly**: QA engineers write tests, while developers can maintain or update locators separately.
 
 ### 3. Test Parametrization
 
 - Execute the same test case with **multiple input combinations**.
 - This example demonstrates how to use `@pytest.mark.parametrize` to test the same logic against a variety of invalid email inputs.
+- **Benefits**:  One test method = dozens of variations executed automatically.
 
 ```python
 @pytest.mark.parametrize("email", InvalidUserData.generate_invalid_email())
@@ -147,7 +144,6 @@ def test_register_invalid_email(self, email):
     # Attempts registration with each invalid email
     ...
 ```
-**Benefits**:  One test method = dozens of variations executed automatically.
 
 📄 Full test code available in:
 📄 [test_register_invalid.py](tests/register_user_tests/test_register_invalid.py)
@@ -159,7 +155,6 @@ def test_register_invalid_email(self, email):
 ### 1. Automatic Report Generation
 
 - **Trigger**: Generated automatically after every test run.
-- **Location**: `reports/report_<TIMESTAMP>.html`
 
 - **Contents**:
   - Test module (name of the folder containing the test file)

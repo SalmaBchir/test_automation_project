@@ -1,14 +1,14 @@
 import pytest
 from pages.register_page import RegisterPage
 from tests.base_test import BaseTest
-from utils.error_messages.register_page_errors import RegisterPageErrors
+from utils.validation_messages.register_page_messages import RegisterPageMessages
 from utils.users import (ValidUserData, InvalidUserData)
 
 class TestRegisterInvalidFields(BaseTest):
 
     @pytest.mark.parametrize("email", InvalidUserData.generate_invalid_email())
     def test_register_invalid_email(self, email):
-        """Verify that user registration fails with different types of invalid emails"""
+        """Verify that user registration fails when using an invalid email format."""
         register_page = RegisterPage(self.driver)
         register_page.open()
         valid_password = ValidUserData.VALID_PASSWORD
@@ -25,16 +25,16 @@ class TestRegisterInvalidFields(BaseTest):
         )
 
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.INVALID_EMAIL
+        expected_error = RegisterPageMessages.INVALID_EMAIL
         assert expected_error in error_message, (
             f"Error message validation failed.\n"
             f"Expected = '{expected_error}'\n"
-            f"Actual = '{error_message}'\n"
-            f"The system should flag the email ='{email}' as invalid."
+            f"Actual = '{error_message}' (normally used for: "
+            f"{RegisterPageMessages.get_message_type(error_message)})"
         )
 
     def test_register_invalid_password(self):
-        """Verify that user registration fails with an invalid password"""
+        """Verify that user registration fails when using an invalid password (less than 8 characters)."""
         register_page = RegisterPage(self.driver)
         register_page.open()
         invalid_password = InvalidUserData.INVALID_PASSWORD
@@ -51,11 +51,12 @@ class TestRegisterInvalidFields(BaseTest):
             f"Valid email used = '{valid_email}'"
         )
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.INVALID_PASSWORD
+        expected_error = RegisterPageMessages.INVALID_PASSWORD
         assert expected_error in error_message, (
-            f"Validation error mismatch.\n"
+            f"Validation error mismatch for password = '{invalid_password}.\n"
             f"Expected = '{expected_error}'\n"
-            f"Actual = '{error_message}'"
+            f"Actual = '{error_message}' (normally used for: "
+            f"{RegisterPageMessages.get_message_type(error_message)})"
         )
 
     def test_register_invalid_confirm_password(self):
@@ -74,15 +75,16 @@ class TestRegisterInvalidFields(BaseTest):
         )
         assert not register_page.is_registration_successful(), (
             f"Unexpected user registration success with mismatched password confirmation.\n"
-            f"Valid email used: '{valid_email}'\n"
-            f"Valid password used: '{valid_password}'\n"
-            f"Confirmation used: '{invalid_confirmation}'"
+            f"Valid email used = '{valid_email}'\n"
+            f"Valid password used = '{valid_password}'\n"
+            f"Confirmation used = '{invalid_confirmation}'"
         )
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.INVALID_PASSWORD_CONFIRMATION
+        expected_error = RegisterPageMessages.INVALID_PASSWORD_CONFIRMATION
         assert expected_error in error_message, (
             f"Validation error mismatch.\n"
             f"Expected = '{expected_error}'\n"
-            f"Actual = '{error_message}'"
+            f"Actual = '{error_message}' (normally used for: "
+            f"{RegisterPageMessages.get_message_type(error_message)})"
 
         )

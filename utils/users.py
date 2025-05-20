@@ -1,6 +1,7 @@
+import os
 import random
 import string
-
+import time
 class TestDataUtils:
     @staticmethod
     def generate_valid_email():
@@ -67,7 +68,20 @@ class InvalidCompanyData:
     def generate_invalid_email():
         return TestDataUtils.generate_invalid_email()
 
-class RegisteredUsers:
-   """
-   Centralized repository of pre-registered user accounts
-   """
+
+class ResetPasswordData:
+
+
+    IMAP_EMAIL = f"{os.getenv('TEST_EMAIL_PREFIX')}@{os.getenv('TEST_EMAIL_DOMAIN')}"  # Email address used to receive password reset emails
+    IMAP_SERVER = os.getenv("IMAP_SERVER")
+    IMAP_PASSWORD = os.getenv("TEST_EMAIL_PASSWORD") #  (an app-specific password)
+    IMAP_FOLDER =  os.getenv("IMAP_FOLDER")  # Folder in the mailbox where password reset emails might be delivered.
+    NEW_VALID_PASSWORD = "newpassword"  # New password that will be set during the password reset process
+    SUBJECT_KEYWORD = "mot de passe" # Keyword used to filter the password reset email by subject
+
+    @classmethod
+    def generate_test_email(cls):
+        """
+        Generates a unique test email address for reset_password_tests
+        """
+        return f"{os.getenv('TEST_EMAIL_PREFIX')}+test{int(time.time())}@{os.getenv('TEST_EMAIL_DOMAIN')}"

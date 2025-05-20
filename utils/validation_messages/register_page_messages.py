@@ -1,7 +1,9 @@
+from utils.validation_messages.base_messages import BaseMessages
 
-class RegisterPageErrors:
+
+class RegisterPageMessages(BaseMessages):
     """
-    Error messages for the register page
+    Validation messages for the register page
     """
 
     INVALID_EMAIL = "Le champ E-mail doit contenir une adresse e-mail valide."

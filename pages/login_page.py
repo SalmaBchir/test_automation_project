@@ -54,9 +54,9 @@ class LoginPage(BasePage):
         create_account_link = self.find_element(LoginPageLocators.CREATE_ACCOUNT_LINK)
         self.click_element(create_account_link)
 
-    def get_login_error_message(self):
-        element = self.find_element(LoginPageLocators.ERROR_MESSAGE)
-        return self.get_error_message(element)
+    def get_login_validation_message(self):
+        element = self.find_element(LoginPageLocators.VALIDATION_MESSAGE)
+        return self.get_text(element)
 
     def is_login_before_company_successful(self):
         """

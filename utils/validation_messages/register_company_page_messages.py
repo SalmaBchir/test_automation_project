@@ -1,7 +1,9 @@
+from utils.validation_messages.base_messages import BaseMessages
 
-class RegisterCompanyPageErrors:
+
+class RegisterCompanyPageMessages(BaseMessages):
     """
-    Error messages for the register company page
+    Validation messages for the register company page
     """
 
     INVALID_EMAIL = "Le champ E-mail doit être une adresse email valide."
@@ -9,3 +11,4 @@ class RegisterCompanyPageErrors:
     EMPTY_SIRET = "Le champ siret est obligatoire."
     EMPTY_EMAIL = "Le champ E-mail est obligatoire."
     ALREADY_REGISTERED = "La valeur du champ E-mail est déjà utilisée."
+

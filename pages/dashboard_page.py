@@ -10,7 +10,7 @@ class DashboardPage(BasePage):
     """Page object for the dashboard page"""
 
     def open(self):
-        """Open the register page using the predefined URL"""
+        """Open the dashboard page using the predefined URL"""
         self.open_url(Urls.DASHBOARD)
 
     def logout(self):

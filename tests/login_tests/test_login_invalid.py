@@ -1,14 +1,14 @@
 from pages.login_page import LoginPage
 from pages.register_company_page import RegisterCompanyPage
 from tests.base_test import BaseTest
-from utils.error_messages.login_page_errors import LoginPageErrors
+from utils.validation_messages.login_page_messages import LoginPageMessages
 from utils.urls import Urls
 
 
 class TestLoginInvalidFields(BaseTest):
 
     def test_login_invalid_email(self, register_user_fixture):
-        """Verify that login fails with invalid email."""
+        """Verify that login fails when using an invalid email format."""
         register_company_page = RegisterCompanyPage(self.driver)
         register_company_page.click_login_link()
         assert register_company_page.is_login_page_opened(), (
@@ -27,17 +27,17 @@ class TestLoginInvalidFields(BaseTest):
             f"Valid password used = '{valid_password}'"
         )
 
-        expected_error = LoginPageErrors.INVALID_EMAIL
-        error_message = login_page.get_login_error_message()
+        expected_error = LoginPageMessages.INVALID_EMAIL
+        error_message = login_page.get_login_validation_message()
         assert expected_error in error_message, (
-            f"Error message validation failed.\n"
+            f"Error message validation failed for email ='{invalid_email}'\n"
             f"Expected = '{expected_error}'\n"
-            f"Actual = '{error_message}'\n"
-            f"The system should flag the email ='{invalid_email}' as invalid."
+            f"Actual = '{error_message}' (normally used for: "
+            f"{LoginPageMessages.get_message_type(error_message)})"
         )
 
     def test_login_invalid_password(self, register_user_fixture):
-        """Verify that login fails with invalid password."""
+        """Verify that login fails when using an invalid password (less than 8 characters)."""
         register_company_page = RegisterCompanyPage(self.driver)
         register_company_page.click_login_link()
         assert register_company_page.is_login_page_opened(), (
@@ -56,12 +56,12 @@ class TestLoginInvalidFields(BaseTest):
             f"Valid email used = '{valid_email}'"
         )
 
-        expected_error = LoginPageErrors.WRONG_CREDENTIALS
-        error_message = login_page.get_login_error_message()
+        expected_error = LoginPageMessages.WRONG_CREDENTIALS
+        error_message = login_page.get_login_validation_message()
 
         assert expected_error in error_message, (
-            f"Error message validation failed.\n"
+            f"Error message validation failed for password = '{invalid_password}'.\n"
             f"Expected = '{expected_error}'\n"
-            f"Actual = '{error_message}'\n"
-
+            f"Actual = '{error_message}' (normally used for: "
+            f"{LoginPageMessages.get_message_type(error_message)})"
         )

@@ -1,7 +1,7 @@
 import pytest
 from pages.register_page import RegisterPage
 from tests.base_test import BaseTest
-from utils.error_messages.register_page_errors import RegisterPageErrors
+from utils.validation_messages.register_page_messages import RegisterPageMessages
 from utils.users import ValidUserData
 
 
@@ -18,9 +18,9 @@ class TestRegisterEmptyFields(BaseTest):
             f"Valid email used = '{valid_email}'"
         )
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.EMPTY_LASTNAME
+        expected_error = RegisterPageMessages.EMPTY_LASTNAME
         assert expected_error in error_message, (
-            f"Validation error mismatch.\n"
+            f"Validation error mismatch for last name = '{lastname}'.\n"
             f"Expected = '{expected_error}'\n"
             f"Actual = '{error_message}'"
         )
@@ -37,9 +37,9 @@ class TestRegisterEmptyFields(BaseTest):
             f"Valid email used = '{valid_email}'"
         )
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.EMPTY_FIRSTNAME
+        expected_error = RegisterPageMessages.EMPTY_FIRSTNAME
         assert expected_error in error_message, (
-            f"Validation error mismatch.\n"
+            f"Validation error mismatch for first name = '{firstname}.\n"
             f"Expected = '{expected_error}'\n"
             f"Actual = '{error_message}'"
         )
@@ -55,9 +55,9 @@ class TestRegisterEmptyFields(BaseTest):
             f"Unexpected user registration success with email = '{email}'"
         )
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.EMPTY_EMAIL
+        expected_error = RegisterPageMessages.EMPTY_EMAIL
         assert expected_error in error_message, (
-            f"Validation error mismatch.\n"
+            f"Validation error mismatch for email = '{email}'.\n"
             f"Expected = '{expected_error}'\n"
             f"Actual = '{error_message}'"
         )
@@ -75,9 +75,9 @@ class TestRegisterEmptyFields(BaseTest):
             f"Valid email used = '{valid_email}'"
         )
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.EMPTY_PASSWORD
+        expected_error = RegisterPageMessages.EMPTY_PASSWORD
         assert expected_error in error_message, (
-            f"Validation error mismatch.\n"
+            f"Validation error mismatch for password = '{password}'.\n"
             f"Expected = '{expected_error}'\n"
             f"Actual = '{error_message}'"
         )
@@ -96,7 +96,7 @@ class TestRegisterEmptyFields(BaseTest):
             f"Valid password used = '{valid_password}'"
         )
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.INVALID_PASSWORD_CONFIRMATION
+        expected_error = RegisterPageMessages.INVALID_PASSWORD_CONFIRMATION
         assert expected_error in error_message, (
             f"Validation error mismatch.\n"
             f"Expected = '{expected_error}'\n"

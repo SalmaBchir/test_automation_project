@@ -1,7 +1,7 @@
 import pytest
 from pages.register_page import RegisterPage
 from tests.base_test import BaseTest
-from utils.error_messages.register_page_errors import RegisterPageErrors
+from utils.validation_messages.register_page_messages import RegisterPageMessages
 
 class TestAlreadyRegistered(BaseTest):
 
@@ -32,9 +32,10 @@ class TestAlreadyRegistered(BaseTest):
         )
 
         error_message = register_page.get_register_error_message()
-        expected_error = RegisterPageErrors.ALREADY_REGISTERED
+        expected_error = RegisterPageMessages.ALREADY_REGISTERED
         assert expected_error in error_message, (
             f"Validation error mismatch.\n"
             f"Expected = '{expected_error}'\n"
-            f"Actual = '{error_message}'"
+            f"Actual = '{error_message}' (normally used for: "
+            f"{RegisterPageMessages.get_message_type(error_message)})"
         )

@@ -12,7 +12,7 @@ class TestLoginPageUI(BaseTest):
         actual_title = login_page.get_title()
         expected_title = LoginPageUI.LOGIN_PAGE_TITLE
         assert actual_title == expected_title, (
-            f"Login Page title ERROR\n "
+            f"LOGIN PAGE TITLE ERROR\n "
             f"Expected = '{expected_title}'\n"
             f"Actual = '{actual_title}'. "
         )

@@ -98,7 +98,7 @@ class RegisterPage(BasePage):
 
     def get_register_error_message(self):
         element= self.find_element(RegisterPageLocators.ERROR_MESSAGE)
-        return self.get_error_message(element)
+        return self.get_text(element)
 
     def is_registration_successful(self):
         """Check if registration was successful

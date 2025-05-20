@@ -4,7 +4,7 @@ from pages.register_company_page import RegisterCompanyPage
 from pages.register_page import RegisterPage
 from pages.subscription_page import SubscriptionPage
 from tests.base_test import BaseTest
-from utils.error_messages.register_company_page_errors import RegisterCompanyPageErrors
+from utils.validation_messages.register_company_page_messages import RegisterCompanyPageMessages
 from utils.urls import Urls
 
 
@@ -54,9 +54,10 @@ class TestAlreadyRegisteredCompany(BaseTest):
         )
 
         error_message = register_company_page.get_register_company_error_message()
-        expected_error = RegisterCompanyPageErrors.ALREADY_REGISTERED
+        expected_error = RegisterCompanyPageMessages.ALREADY_REGISTERED
         assert expected_error in error_message, (
             f"Validation error mismatch.\n"
             f"Expected = '{expected_error}'\n"
-            f"Actual = '{error_message}'"
+            f"Actual = '{error_message}' (normally used for: "
+            f"{RegisterCompanyPageMessages.get_message_type(error_message)})"
         )
