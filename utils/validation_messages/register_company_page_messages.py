@@ -6,7 +6,7 @@ class RegisterCompanyPageMessages(BaseMessages):
     Validation messages for the register company page
     """
 
-    INVALID_EMAIL = "Le champ E-mail doit être une adresse email valide."
+    INVALID_EMAIL = "Le format de l'adresse email est invalide."
     EMPTY_NAME = "Le champ nom est obligatoire."
     EMPTY_SIRET = "Le champ siret est obligatoire."
     EMPTY_EMAIL = "Le champ E-mail est obligatoire."

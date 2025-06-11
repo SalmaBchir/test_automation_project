@@ -31,8 +31,7 @@ class BaseTest:
             self.driver.quit()
         except Exception as e:
             self.logger.info(
-                f"The browser was already closed or an error occurred | {str(e)}"
-            )
+                f"The browser was already closed or an error occurred | {str(e)}")
 
     @pytest.fixture
     def register_user_fixture(self):

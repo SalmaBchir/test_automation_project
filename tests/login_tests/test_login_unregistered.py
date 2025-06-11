@@ -15,3 +15,5 @@ class TestLoginUnregistered(BaseTest):
             f"Used email: {unregistered_email}\n"
             f"Used password: {password}\n"
         )
+
+

@@ -8,7 +8,8 @@ from pages.register_page import RegisterPage
 from pages.reset_password_page import ResetPasswordPage
 from utils.users import ValidUserData, ResetPasswordData
 from utils.validation_messages.forgot_password_page_messages import ForgotPasswordPageMessages
-
+import logging
+logger = logging.getLogger(__name__)
 
 class ResetPasswordHelper:
     @staticmethod
@@ -49,7 +50,7 @@ class ResetPasswordHelper:
         try:
             with imaplib.IMAP4_SSL(imap_server) as mail:
                 mail.login(test_email, test_password)
-                driver.logger.info(f"Connected to IMAP server, waiting for reset email to {target_email}...")
+                logger.info(f"Connected to IMAP server, waiting for reset email to {target_email}...")
                 start_time = time.time()
                 while (time.time() - start_time) < timeout_sec:
                     try:
@@ -87,16 +88,16 @@ class ResetPasswordHelper:
                                 return extract_reset_link(body)
 
                     except Exception as e:
-                        driver.logger.warning(f"Temporary error during email check = {str(e)}")
+                        logger.warning(f"Temporary error during email check = {str(e)}")
 
                     time.sleep(interval_sec)
 
         except imaplib.IMAP4.error as e:
             error_msg = f"IMAP server error: {str(e)}"
-            driver.logger.error(error_msg)
+            logger.error(error_msg)
             raise ConnectionError(error_msg) from e
         except Exception as e:
-            driver.logger.error(f"Unexpected error: {str(e)}")
+            logger.error(f"Unexpected error: {str(e)}")
             raise
 
         raise TimeoutError(

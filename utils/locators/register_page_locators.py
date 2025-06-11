@@ -12,5 +12,5 @@ class RegisterPageLocators:
     PASSWORD_FIELD = (By.XPATH, "//input[@name='password']")
     PASSWORD_CONFIRMATION_FIELD = (By.XPATH, "//input[@name='password_confirmation']")
     CONTINUE_BUTTON = (By.CLASS_NAME, "btn")
-    ERROR_MESSAGE = (By.CLASS_NAME, "alert")
+    ERROR_MESSAGE = (By.CLASS_NAME, "invalid-feedback")
     LOGIN_LINK= (By.XPATH, f"//*[@href='{Urls.LOGIN}']")

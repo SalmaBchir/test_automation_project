@@ -30,8 +30,7 @@ class TestRegisterInvalidFields(BaseTest):
             f"Error message validation failed.\n"
             f"Expected = '{expected_error}'\n"
             f"Actual = '{error_message}' (normally used for: "
-            f"{RegisterPageMessages.get_message_type(error_message)})"
-        )
+            f"{RegisterPageMessages.get_message_type(error_message)})")
 
     def test_register_invalid_password(self):
         """Verify that user registration fails when using an invalid password (less than 8 characters)."""
@@ -85,6 +84,4 @@ class TestRegisterInvalidFields(BaseTest):
             f"Validation error mismatch.\n"
             f"Expected = '{expected_error}'\n"
             f"Actual = '{error_message}' (normally used for: "
-            f"{RegisterPageMessages.get_message_type(error_message)})"
-
-        )
+            f"{RegisterPageMessages.get_message_type(error_message)})")
