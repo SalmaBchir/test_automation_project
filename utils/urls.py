@@ -4,7 +4,7 @@ used throughout the application.
 """
 
 class Urls:
-    BASE_URL = "https://crm.rapidosoftware.com"
+    BASE_URL = "https://......com"
     DASHBOARD = f"{BASE_URL}/dashboard"
     LOGIN = f"{BASE_URL}/login"
     LOGOUT = f"{BASE_URL}/logout"
